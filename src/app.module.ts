@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/users.entity';
+import { Report } from './reports/reports.entity';
 @Module({
   imports: [
     // connecting to DB
@@ -13,7 +14,7 @@ import { User } from './users/users.entity';
       host: 'localhost',
       database: 'carsdb',
       // having all the entities (Schemas) for our app
-      entities: [User],
+      entities: [User, Report],
       username: 'root',
       password: '97177akshit',
       synchronize: true,
