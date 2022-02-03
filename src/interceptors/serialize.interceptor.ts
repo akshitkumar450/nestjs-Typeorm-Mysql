@@ -8,6 +8,7 @@ import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+// making the custom decorator to use SerializeInterceptor with any DTO
 export function Serialize(dto: any) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
