@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserDto } from './DTO/create-user-dto';
 import { UpdateUserDto } from './DTO/update-user-dto';
@@ -28,6 +30,8 @@ export class UsersController {
   //     return this.usersService.findAll();
   //   }
 
+  // for excluding the password in response
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   findByid(@Param('id') userId: string) {
     return this.usersService.findById(parseInt(userId));
