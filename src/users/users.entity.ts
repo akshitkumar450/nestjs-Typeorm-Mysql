@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import { AfterInsert, Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
@@ -9,7 +8,6 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude() //for excluding the password in response
   password: string;
 
   // hooks only run we have an instance

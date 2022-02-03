@@ -8,8 +8,8 @@ import {
   Post,
   Query,
   UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
+import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './DTO/create-user-dto';
 import { UpdateUserDto } from './DTO/update-user-dto';
 import { UsersService } from './users.service';
@@ -31,9 +31,11 @@ export class UsersController {
   //   }
 
   // for excluding the password in response
-  @UseInterceptors(ClassSerializerInterceptor)
+  @UseInterceptors(SerializeInterceptor)
   @Get('/:id')
   findByid(@Param('id') userId: string) {
+    console.log('2.handle is running');
+
     return this.usersService.findById(parseInt(userId));
   }
 
