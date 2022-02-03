@@ -30,6 +30,8 @@ export class UsersService {
   }
 
   async findById(id: number) {
+    if (!id) return null;
+    // the above check is used bcz if the id is null then the findOne method will return the first result
     const user = await this.userRepo.findOne(id);
     if (!user) {
       throw new NotFoundException('user not found');
