@@ -30,11 +30,11 @@ export class UsersController {
   //     return this.usersService.findAll();
   //   }
 
-  // for excluding the password in response
+  // for excluding the password(any fields) in response
   @UseInterceptors(SerializeInterceptor)
   @Get('/:id')
   findByid(@Param('id') userId: string) {
-    console.log('2.handle is running');
+    // console.log('2.handle is running');
 
     return this.usersService.findById(parseInt(userId));
   }
