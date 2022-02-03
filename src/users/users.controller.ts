@@ -27,28 +27,42 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
+  // getting the current logged in user
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    // if the user is signed in then userId will be on the session/cookie
+    return this.usersService.findById(session.userId);
+  }
+
   @Post('/signup')
-  createUser(@Body() body: CreateUserDto) {
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     // console.log(body);
     // return this.usersService.createUser(body.email, body.password);
-    return this.authService.signUp(body.email, body.password);
+    const user = await this.authService.signUp(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   @Post('/signin')
-  signInUser(@Body() body: CreateUserDto) {
-    return this.authService.signIn(body.email, body.password);
+  async signInUser(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signIn(body.email, body.password);
+    //  this will happen only if there is a change is session between 2 requests
+    // session will change if the userId is changed,but if the userId are same then it will not set userId on session
+    session.userId = user.id;
+
+    return user;
   }
 
-  // Sessions
-  @Get('/colors/:color')
-  setColor(@Param('color') color: string, @Session() session: any) {
-    session.color = color;
-  }
+  // // Sessions
+  // @Get('/colors/:color')
+  // setColor(@Param('color') color: string, @Session() session: any) {
+  //   session.color = color;
+  // }
 
-  @Get('/colors')
-  getColor(@Session() session: any) {
-    return session.color;
-  }
+  // @Get('/colors')
+  // getColor(@Session() session: any) {
+  //   return session.color;
+  // }
 
   // @Get('/')
   // getAllUsers() {
