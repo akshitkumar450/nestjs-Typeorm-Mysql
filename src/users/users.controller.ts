@@ -28,7 +28,12 @@ import { User } from './users.entity';
 // set in on the request object
 // which will be returned from decorator
 // interceptor will run first then decorator
-@UseInterceptors(CurrentUserInterceptor)
+
+// this is just scopred to this controller
+// but if we have some other router/controller then we have to do the same steps of import it again ..not a good way
+// GOOD WAY-->use globally scoped interceptor
+// then any request that comes from anywhere to our application this will handle
+// @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   // DI
   constructor(
