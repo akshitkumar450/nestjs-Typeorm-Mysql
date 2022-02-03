@@ -9,6 +9,7 @@ import {
   Query,
   Session,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './DTO/create-user-dto';
 import { UpdateUserDto } from './DTO/update-user-dto';
@@ -19,6 +20,7 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { User } from './users.entity';
+import { AuthGuard } from 'src/guards/auth.guard';
 // serilization in root
 @Serialize(UserDto)
 @Controller('auth')
@@ -47,6 +49,7 @@ export class UsersController {
   //   // if the user is signed in then userId will be on the session/cookie
   //   return this.usersService.findById(session.userId);
   // }
+  @UseGuards(AuthGuard)
   @Get('/whoami')
   // @CurrentUser('who am i')
   // the value inside the decorator will be in the data in CurrentUser
