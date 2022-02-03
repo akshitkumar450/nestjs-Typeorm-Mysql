@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Session,
 } from '@nestjs/common';
 import { CreateUserDto } from './DTO/create-user-dto';
 import { UpdateUserDto } from './DTO/update-user-dto';
@@ -14,6 +15,7 @@ import { UsersService } from './users.service';
 import { UserDto } from './DTO/user-dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
+import { get } from 'http';
 
 // serilization in root
 @Serialize(UserDto)
@@ -37,10 +39,21 @@ export class UsersController {
     return this.authService.signIn(body.email, body.password);
   }
 
-  //   @Get('/')
-  //   getAllUsers() {
-  //     return this.usersService.findAll();
-  //   }
+  // Sessions
+  @Get('/colors/:color')
+  setColor(@Param('color') color: string, @Session() session: any) {
+    session.color = color;
+  }
+
+  @Get('/colors')
+  getColor(@Session() session: any) {
+    return session.color;
+  }
+
+  // @Get('/')
+  // getAllUsers() {
+  //   return this.usersService.findAll();
+  // }
 
   // for excluding the password(any fields) in response
   // @UseInterceptors(new SerializeInterceptor(UserDto))
