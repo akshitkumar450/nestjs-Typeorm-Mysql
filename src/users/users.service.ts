@@ -38,11 +38,11 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    //returns a array of all results
+    //find returns a array of all results even if there is single result
     const user = await this.userRepo.find({ email: email });
-    if (user.length === 0) {
-      throw new NotFoundException('user not found');
-    }
+    // if (user.length === 0) {
+    //   throw new NotFoundException('user not found');
+    // }
     return user;
   }
 
