@@ -9,11 +9,11 @@ import {
   Query,
   UseInterceptors,
 } from '@nestjs/common';
-import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './DTO/create-user-dto';
 import { UpdateUserDto } from './DTO/update-user-dto';
 import { UsersService } from './users.service';
 import { UserDto } from './DTO/user-dto';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 @Controller('auth')
 export class UsersController {
   // DI
@@ -31,7 +31,10 @@ export class UsersController {
   //   }
 
   // for excluding the password(any fields) in response
-  @UseInterceptors(new SerializeInterceptor(UserDto))
+  // @UseInterceptors(new SerializeInterceptor(UserDto))
+
+  // custom decorator
+  @Serialize(UserDto)
   @Get('/:id')
   findByid(@Param('id') userId: string) {
     // console.log('2.handle is running');
