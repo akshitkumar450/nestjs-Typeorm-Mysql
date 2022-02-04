@@ -28,7 +28,9 @@ export class ReportsController {
     return this.reportsService.createReport(body, user);
   }
 
-  // this will not work our current user interceptor will run before our admin guard that's why our current user will not be available on request
+  // this will not work our currentUser interceptor will run before our adminGuard that's why our current user will not be available on request
+
+  // for working of this we need to have middleware which will run before our adminGuard to set the currentUser
   @UseGuards(AdminGuard)
   @Patch('/:id')
   approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
