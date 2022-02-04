@@ -28,6 +28,7 @@ export class ReportsController {
     return this.reportsService.createReport(body, user);
   }
 
+  // this will not work our current user interceptor will run before our admin guard that's why our current user will not be available on request
   @UseGuards(AdminGuard)
   @Patch('/:id')
   approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
