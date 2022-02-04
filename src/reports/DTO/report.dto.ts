@@ -25,6 +25,9 @@ export class ReportDto {
   @Expose()
   milaage: string;
 
+  @Expose()
+  approved: boolean;
+
   // add new property to show
   // obj is the original report entity
   @Transform(({ obj }) => obj.user.id)
