@@ -43,6 +43,7 @@ export class ReportsController {
   @Get('/')
   // http://localhost:3000/reports?make=toyota&model=corolla&lng=0&lat=0&mileage=20000&year=1980
   getEstimate(@Query() query: GetEstimateDto) {
-    console.log(query);
+    // console.log(query);
+    return this.reportsService.createEstimate(query);
   }
 }
