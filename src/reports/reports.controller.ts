@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/guards/admin.guard';
@@ -13,6 +15,7 @@ import { CurrentUser } from 'src/users/decorators/current-user.decorator';
 import { User } from 'src/users/users.entity';
 import { ApproveReportDto } from './DTO/approve-report.dto';
 import { CreateReportDto } from './DTO/create-report.dto';
+import { GetEstimateDto } from './DTO/get-estimate.dto';
 import { ReportDto } from './DTO/report.dto';
 import { ReportsService } from './reports.service';
 
@@ -35,5 +38,11 @@ export class ReportsController {
   @Patch('/:id')
   approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
     return this.reportsService.changeApproval(parseInt(id), body.approved);
+  }
+
+  @Get('/')
+  // http://localhost:3000/reports?make=toyota&model=corolla&lng=0&lat=0&mileage=20000&year=1980
+  getEstimate(@Query() query: GetEstimateDto) {
+    console.log(query);
   }
 }
