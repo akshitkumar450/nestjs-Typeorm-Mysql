@@ -1,4 +1,11 @@
-import { AfterInsert, Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Report } from 'src/reports/reports.entity';
+import {
+  AfterInsert,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -9,6 +16,10 @@ export class User {
 
   @Column()
   password: string;
+
+  // no change in user DB
+  @OneToMany(() => Report, (report) => report.user)
+  reports: Report[];
 
   // hooks only run we have an instance
   @AfterInsert()
